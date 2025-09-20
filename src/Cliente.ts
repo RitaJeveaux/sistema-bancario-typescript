@@ -5,7 +5,7 @@ export class Cliente {
   public contas: Conta[] = [];
   constructor(
     public nome: string,
-    public cpf: number
+    public readonly cpf: string // CPF como string para preservar zeros à esquerda e formato.
   ) { }
 
   public adicionarConta(conta: Conta): void {

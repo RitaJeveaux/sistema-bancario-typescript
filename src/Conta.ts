@@ -7,32 +7,48 @@ export abstract class Conta {
   protected _extrato: Transacao[] = [];
 
   constructor(
-    private _numero: number,
+    public readonly numero: number,
     protected _saldo: number,
 
   ) { }
 
-  public sacar(valor: number): void {
+  public sacar(valor: number): boolean {
     if (valor <= 0) {
       console.log("Valor de saque deve ser positivo.");
-      return;
+      return false;
     }
     if (this._saldo >= valor) {
       this._saldo -= valor;
       this._extrato.push(new Transacao("saque", valor));
       console.log(`Saque de R$ ${valor.toFixed(2)} realizado com sucesso.`);
+      return true;
     } else {
       console.log(`Saque recusado. Saldo insuficiente.`);
+      return false;
     }
   }
 
-  public depositar(valor: number): void {
+  public depositar(valor: number): boolean {
     if (valor > 0) {
       this._saldo += valor;
       this._extrato.push(new Transacao("deposito", valor));
       console.log(`Depósito de R$ ${valor.toFixed(2)} realizado com sucesso!`);
+      return true;
     } else {
       console.log("Valor de depósito deve ser positivo.");
+      return false;
+    }
+  }
+
+  public transferir(valor: number, contaDestino: Conta): void {
+    // Orquestra a transferência: saca da conta de origem e deposita na de destino.
+    // A operação é "atômica" no sentido de que o depósito só ocorre se o saque for bem-sucedido.
+    const saqueRealizado = this.sacar(valor);
+    if (saqueRealizado) {
+      contaDestino.depositar(valor);
+      console.log(`Transferência de R$ ${valor.toFixed(2)} para a conta ${contaDestino.numero} completada.`);
+    } else {
+      console.log(`Transferência de R$ ${valor.toFixed(2)} para a conta ${contaDestino.numero} falhou. Verifique o saldo de origem.`);
     }
   }
 
@@ -46,7 +62,7 @@ export abstract class Conta {
 
   public toJSON() {
     return {
-      numero: this._numero,
+      numero: this.numero,
       extrato: this._extrato.map(transacao => transacao.toJSON())
     }
   }

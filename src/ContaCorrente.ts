@@ -11,10 +11,10 @@ export class ContaCorrente extends Conta {
     super(numero, saldo);
   }
 
-  public override sacar(valor: number): void {
+  public override sacar(valor: number): boolean {
     if (valor <= 0) {
       console.log("Valor de saque deve ser positivo.");
-      return;
+      return false;
     }
 
     const saldoDisponivel = this._saldo + this.limite;
@@ -23,8 +23,10 @@ export class ContaCorrente extends Conta {
       this._saldo -= valor;
       this._extrato.push(new Transacao("saque", valor));
       console.log(`Saque de R$ ${valor.toFixed(2)} realizado com sucesso. Saldo atual: R$ ${this._saldo.toFixed(2)}`);
+      return true;
     } else {
       console.log(`Saque recusado. Saldo e limite insuficientes. Saldo disponível (com limite): R$ ${saldoDisponivel.toFixed(2)}`);
+      return false;
     }
   }
 }
