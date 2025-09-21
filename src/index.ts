@@ -45,6 +45,7 @@ ccJoao.sacar(500); // Deve falhar: Saldo disp: -349.50 + 500 = 150.50. Saque de 
 // Operações na Conta Poupança de João
 console.log("\n--- Operações na Conta Poupança de João (CP 102) ---");
 console.log(`Saldo inicial: R$ ${cpJoao.saldo.toFixed(2)}`);
+console.log('Depositando os Juros que renderam')
 cpJoao.renderJuros();
 console.log(`Saldo após render juros: R$ ${cpJoao.saldo.toFixed(2)}`);
 
@@ -56,7 +57,7 @@ ccMaria.transferir(150, cpJoao);
 console.log(`Saldo final CC Maria: R$ ${ccMaria.saldo.toFixed(2)}`);
 console.log(`Saldo final CP João: R$ ${cpJoao.saldo.toFixed(2)}`);
 
-// 5. Simulação de PIX (Desafio Avançado)
+// 5. Simulação de PIX
 console.log("\n[ETAPA 5: Simulação de PIX]");
 const registroChavesPix = new Map<string, Conta>();
 
@@ -76,11 +77,20 @@ console.log("\n[ETAPA 6: Visualização de extratos e dados em JSON]");
 
 console.log("\n--- Extrato da Conta Corrente de João (CC 101) ---");
 ccJoao.extrato.forEach(transacao => {
-  console.log(`- Tipo: ${transacao.tipo}, Valor: R$ ${transacao.valor.toFixed(2)}, Data: ${transacao.data.toISOString()}`);
+  console.log(`- Tipo: ${transacao.tipo}, Valor: R$ ${transacao.valor.toFixed(2)}, Data: ${transacao.data.toLocaleString('pt-BR')}`);
 });
 
 console.log("\n--- Serialização (toJSON) ---");
 console.log("\nConta Corrente de João (JSON com extrato):");
 console.log(JSON.stringify(ccJoao.toJSON(), null, 2));
+
+console.log("\nCliente João (JSON):");
+console.log(JSON.stringify(clienteJoao.toJSON(), null, 2));
+
+console.log("\nConta Poupança de João (JSON com extrato):");
+console.log(JSON.stringify(cpJoao.toJSON(), null, 2));
+
+console.log("\nChave PIX de Maria (JSON):");
+console.log(JSON.stringify(chaveEmailMaria.toJSON(), null, 2));
 
 console.log("\n--- Fim da Simulação ---");

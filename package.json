@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/RitaJeveaux/sistema-bancario-typescript.git"
   },
-  "keywords": [],
+  "keywords": [
+    "Typescript",
+    "POO",
+    "UML"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

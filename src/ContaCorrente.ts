@@ -26,7 +26,5 @@ export class ContaCorrente extends Conta {
       console.log(`Saque recusado. Saldo e limite insuficientes.`);
       return false;
     }
-
-    return false;
   }
 }

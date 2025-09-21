@@ -12,7 +12,7 @@ export class Transacao {
     return {
       tipo: this.tipo,
       valor: this.valor,
-      data: this.data.toISOString(),
+      data: this.data.toLocaleString('pt-BR'),
     };
   }
 }
