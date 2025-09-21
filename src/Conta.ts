@@ -41,8 +41,6 @@ export abstract class Conta {
   }
 
   public transferir(valor: number, contaDestino: Conta): void {
-    // Orquestra a transferência: saca da conta de origem e deposita na de destino.
-    // A operação é "atômica" no sentido de que o depósito só ocorre se o saque for bem-sucedido.
     const saqueRealizado = this.sacar(valor);
     if (saqueRealizado) {
       contaDestino.depositar(valor);
